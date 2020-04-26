@@ -260,6 +260,45 @@ export default {
     },
     remove(id) {
       this.courses.splice(id, 1);
+      var arr = [],
+        cumm = [];
+      arr = this.courses;
+      var totalUnit = 0,
+        grade = 0,
+        acc = 0,
+        unit = 0;
+      for (let i = 0; i < arr.length; i++) {
+        unit = Number(arr[i].courseUnit);
+        totalUnit = Number(arr[i].courseUnit) + totalUnit;
+        switch (this.courses[i].grade) {
+          case "A":
+            grade = 5;
+            break;
+          case "B":
+            grade = 4;
+            break;
+          case "C":
+            grade = 3;
+            break;
+          case "D":
+            grade = 2;
+            break;
+          case "E":
+            grade = 1;
+            break;
+          case "F":
+            grade = 0;
+            break;
+
+          default:
+            grade = 0;
+            break;
+        }
+        cumm.push(grade * unit);
+      }
+      acc = cumm.reduce((acc, elem) => acc + elem, 0);
+      this.currentGp = (acc / totalUnit).toFixed(2);
+      this.currentGp = (totalUnit == 0) ? 5 : this.currentGp
     }
   }
 };
@@ -270,7 +309,7 @@ export default {
 table {
   margin: 0 auto;
   border-radius: 10px;
-  width: calc(100% - 40px);
+  /* width: calc(100% - 40px); */
   background: hsla(42, 78%, 78%, 0.96);
 }
 

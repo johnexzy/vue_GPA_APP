@@ -3,7 +3,6 @@
     <!-- <img src="./assets/logo.png"> -->
     <nav>
     <router-link to="/">HOME</router-link>
-    <router-link to="/about">ABOUT</router-link>  
     </nav>
     
     <router-view/>
@@ -25,7 +24,7 @@ export default {
 <style>
 
 body{
-  background-color: #eeeeee;
+  background: #9c9797;
   display: grid;
   grid-template-rows: auto;
   justify-items: center;
@@ -36,8 +35,7 @@ body html{
   height: 100%;
 }
 #app{
-  min-width: 300px;
-  margin: 0 auto;
+  width: 50%;
   font-family: monospace
 }
 nav{
@@ -51,5 +49,11 @@ nav a{
   color: rgb(0, 110, 255);
   font-weight: bold;
   margin-right: 15px
+}
+@media screen and (max-width:800px){
+    
+    #app{
+      width: 90%;
+    }
 }
 </style>
