@@ -58,48 +58,43 @@
             >{{currentGp}}</span>
           </b>
         </div>
-      </fieldset>
+      </fieldset> 
     </ValidationObserver>
+    <table cellpadding="1px" cellspacing="1px" v-if="courses.length > 0">
+      <th>Course</th>
+      <th>UNITS</th>
+      <th>GRADE</th>
+      <th>DELETE</th>
+      <tr style="border: 2px solid" v-for="(data, index) in courses" :key="index">
+        <td style="border:none" id="dept">{{data.coursename.toUpperCase()}}</td>
+        <td>
+          <input class="form-input" type="number" v-model="data.courseUnit" placeholder="Unit Load" />
+        </td>
+        <td>
+          <select class="select" v-model="data.grade">
+            <option value="A">A</option>
+            <option value="B">B</option>
+            <option value="C">C</option>
+            <option value="D">D</option>
+            <option value="E">E</option>
+            <option value="F">F</option>
+            <option value selected>Grade</option>
+          </select>
+        </td>
+        <td style="text-align:center;display: grid;justify-items: center; padding-top:5px">
+          <!-- <i >&minus;</i> -->
+          <img @click="remove(index)" v-bind:style="removeStyle" src="./bad.png" alt="kokok" style="width:40%; height:30px">
+        </td>
+      </tr>
+      <tr>
+        <td style="border:none;"></td>
+        <td align="center" style="border:none;">
+          <input type="button" @click="calcGp()" id="button1" value="Calculate GP" />
+        </td>
+        <td style="border: none;"></td>
+      </tr>
+    </table>
     <div class="holder">
-      <table cellpadding="2px" cellspacing="3px" v-if="courses.length > 0">
-        <th>Course</th>
-        <th>UNITS</th>
-        <th>GRADE</th>
-        <th>DELETE</th>
-        <tr style="border: 2px solid" v-for="(data, index) in courses" :key="index">
-          <td style="border:none" id="dept">{{data.coursename.toUpperCase()}}</td>
-          <td>
-            <input
-              class="form-input"
-              type="number"
-              v-model="data.courseUnit"
-              placeholder="Unit Load"
-            />
-          </td>
-          <td>
-            <select class="select" v-model="data.grade">
-              <option value="A">A</option>
-              <option value="B">B</option>
-              <option value="C">C</option>
-              <option value="D">D</option>
-              <option value="E">E</option>
-              <option value="F">F</option>
-              <option value selected>Grade</option>
-            </select>
-          </td>
-          <td>
-            <i @click="remove(index)" v-bind:style="removeStyle">&minus;</i>
-          </td>
-        </tr>
-        <tr>
-          <td style="border:none;"></td>
-          <td align="center" style="border:none;">
-            <input type="button" @click="calcGp()" id="button1" value="Calculate GP" />
-          </td>
-          <td style="border: none;"></td>
-        </tr>
-      </table>
-      
       <p v-if="courses.length == 0" v-bind:style="{color:'#3b5998'}">Please add some courses</p>
       <p
         v-else-if="courses.length == 1"
@@ -132,7 +127,7 @@ export default {
       // gpstate:
       removeStyle: {
         color: "#fff",
-        backgroundColor: "#a10",
+        // backgroundColor: "#a10",
         borderRadius: "20px",
         width: "20px",
         height: "20px",
@@ -147,9 +142,7 @@ export default {
       currentGp: 5.0
     };
   },
-  computed:{
-    
-  },
+  computed: {},
   methods: {
     gpState(state) {
       var gp = this.currentGp;
@@ -178,45 +171,7 @@ export default {
       });
       this.coursename = "";
       // console.log(this.courses);
-
-      var arr = [],
-        cumm = [];
-      arr = this.courses;
-      var totalUnit = 0,
-        grade = 0,
-        acc = 0,
-        unit = 0;
-      for (let i = 0; i < arr.length; i++) {
-        unit = Number(arr[i].courseUnit);
-        totalUnit = Number(arr[i].courseUnit) + totalUnit;
-        switch (this.courses[i].grade) {
-          case "A":
-            grade = 5;
-            break;
-          case "B":
-            grade = 4;
-            break;
-          case "C":
-            grade = 3;
-            break;
-          case "D":
-            grade = 2;
-            break;
-          case "E":
-            grade = 1;
-            break;
-          case "F":
-            grade = 0;
-            break;
-
-          default:
-            grade = 0;
-            break;
-        }
-        cumm.push(grade * unit);
-      }
-      acc = cumm.reduce((acc, elem) => acc + elem, 0);
-      this.currentGp = (acc / totalUnit).toFixed(2);
+      this.calcGp();
     },
     calcGp() {
       var arr = [],
@@ -260,45 +215,8 @@ export default {
     },
     remove(id) {
       this.courses.splice(id, 1);
-      var arr = [],
-        cumm = [];
-      arr = this.courses;
-      var totalUnit = 0,
-        grade = 0,
-        acc = 0,
-        unit = 0;
-      for (let i = 0; i < arr.length; i++) {
-        unit = Number(arr[i].courseUnit);
-        totalUnit = Number(arr[i].courseUnit) + totalUnit;
-        switch (this.courses[i].grade) {
-          case "A":
-            grade = 5;
-            break;
-          case "B":
-            grade = 4;
-            break;
-          case "C":
-            grade = 3;
-            break;
-          case "D":
-            grade = 2;
-            break;
-          case "E":
-            grade = 1;
-            break;
-          case "F":
-            grade = 0;
-            break;
-
-          default:
-            grade = 0;
-            break;
-        }
-        cumm.push(grade * unit);
-      }
-      acc = cumm.reduce((acc, elem) => acc + elem, 0);
-      this.currentGp = (acc / totalUnit).toFixed(2);
-      this.currentGp = (totalUnit == 0) ? 5 : this.currentGp
+      this.calcGp()
+      this.currentGp = totalUnit == 0 ? 5 : this.currentGp;
     }
   }
 };
@@ -346,7 +264,7 @@ td {
 }
 .form-input {
   display: inline-block;
-
+  width: 60%;
   height: 25px;
   margin: auto;
   border: none;
