@@ -7,7 +7,8 @@
     "scripts": {
         "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
         "start": "npm run dev",
-        "build": "node build/build.js"
+        "build": "node build/build.js",
+        "make:commit": "cz"
     },
     "dependencies": {
         "axios": "^0.19.2",
@@ -61,5 +62,10 @@
         "> 1%",
         "last 2 versions",
         "not ie <= 8"
-    ]
+    ],
+    "config": {
+        "commitizen": {
+          "path": "C:\\Users\\hp\\AppData\\Roaming\\npm\\node_modules\\cz-conventional-changelog"
+        }
+      }
 }
