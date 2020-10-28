@@ -1,11 +1,11 @@
 <template>
-  <div class="hello">   
-          <!-- <router-link to="/">ABOUT</router-link> -->
+  <div class="hello">
+          <router-link to="/">ABOUT</router-link>
           <img src="../assets/logo.png">
     <h1>{{ mmg }}</h1>
     <h2>Essential Links</h2>
     <ul>
-      
+
       <li>
         <a
           href="https://github.com/vuejs/awesome-vue"

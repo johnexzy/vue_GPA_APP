@@ -4,27 +4,27 @@
     <nav>
     <router-link to="/">HOME</router-link>
     </nav>
-    
+
     <router-view/>
-    <!-- <HelloWorld/> -->
-    
+    <!-- <Gp/> -->
+
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld'
+import Gp from './components/Gp'
 
 export default {
   name: 'App',
   components:{
-    HelloWorld
+    Gp
   }
 }
 </script>
 <style>
 
 body{
-  background: #9c9797;
+  background: #dfdbdb94;
   display: grid;
   grid-template-rows: auto;
   justify-items: center;
@@ -51,7 +51,7 @@ nav a{
   margin-right: 15px
 }
 @media screen and (max-width:800px){
-    
+
     #app{
       width: 90%;
     }

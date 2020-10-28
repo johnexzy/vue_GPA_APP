@@ -3,9 +3,13 @@
     <ValidationObserver v-slot="{ passes }">
       <fieldset>
         <legend>ADD NEW COURSE</legend>
-        <div style="margin-bottom:5px; border:1px solid; border-radius:5px" class="container">
-          <form @submit.prevent="passes(addSkill)">
-            <ValidationProvider name="skill" rules="required" v-slot="{ errors }">
+        <div style="margin-bottom: 5px; border-radius: 5px" class="container">
+          <form @submit.prevent="passes(addCourse)">
+            <ValidationProvider
+              name="skill"
+              rules="required"
+              v-slot="{ errors }"
+            >
               <label for="newcourse">Course:</label>
               <input
                 name="newcourse"
@@ -19,20 +23,25 @@
               </div>
             </ValidationProvider>
             <br />
-            <div style="margin-top:1rem">
+            <div style="margin-top: 1rem">
               <label for="newunit">Course Unit:</label>
               <input
                 placeholder="2"
                 type="number"
                 class="newcourse"
-                style="width:40px"
+                style="width: 40px"
                 v-model="courseUnit"
               />
               <label for="grade">Grade:</label>
               <select
                 v-model="grade"
                 id
-                style="font-size: 1em; width:4rem; background:#000000a8; color:#fff"
+                style="
+                  font-size: 1em;
+                  width: 4rem;
+                  background: #000000a8;
+                  color: #fff;
+                "
               >
                 <option value="A" selected>A</option>
                 <option value="B">B</option>
@@ -42,9 +51,12 @@
                 <option value="F">F</option>
               </select>
             </div>
+            <button @click="passes(addCourse)" class="btnAdd" type="submit">
+              &plus; COURSE
+            </button>
           </form>
         </div>
-        <button @click="passes(addSkill)" class="btnAdd" type="submit">&plus; COURSE</button>
+
         <div id="display">
           <b>
             Current GPA:
@@ -53,22 +65,34 @@
                 excellent: gpState(1),
                 good: gpState(2),
                 poor: gpState(4),
-                fair: gpState(3)
+                fair: gpState(3),
               }"
-            >{{currentGp}}</span>
+              >{{ currentGp }}</span
+            >
           </b>
         </div>
-      </fieldset> 
+      </fieldset>
     </ValidationObserver>
     <table cellpadding="1px" cellspacing="1px" v-if="courses.length > 0">
       <th>Course</th>
       <th>UNITS</th>
       <th>GRADE</th>
       <th>DELETE</th>
-      <tr style="border: 2px solid" v-for="(data, index) in courses" :key="index">
-        <td style="border:none" id="dept">{{data.coursename.toUpperCase()}}</td>
+      <tr
+        style="border: 2px solid"
+        v-for="(data, index) in courses"
+        :key="index"
+      >
+        <td style="border: none" id="dept">
+          {{ data.coursename.toUpperCase() }}
+        </td>
         <td>
-          <input class="form-input" type="number" v-model="data.courseUnit" placeholder="Unit Load" />
+          <input
+            class="form-input"
+            type="number"
+            v-model="data.courseUnit"
+            placeholder="Unit Load"
+          />
         </td>
         <td>
           <select class="select" v-model="data.grade">
@@ -81,26 +105,47 @@
             <option value selected>Grade</option>
           </select>
         </td>
-        <td style="text-align:center;display: grid;justify-items: center; padding-top:5px">
+        <td
+          style="
+            text-align: center;
+            display: grid;
+            justify-items: center;
+            padding-top: 5px;
+          "
+        >
           <!-- <i >&minus;</i> -->
-          <img @click="remove(index)" v-bind:style="removeStyle" src="./bad.png" alt="kokok" style="width:40%; height:30px">
+          <img
+            @click="remove(index)"
+            v-bind:style="removeStyle"
+            src="./bad.png"
+            alt="kokok"
+            style="width: 40%; height: 30px"
+          />
         </td>
       </tr>
       <tr>
-        <td style="border:none;"></td>
-        <td align="center" style="border:none;">
-          <input type="button" @click="calcGp()" id="button1" value="Calculate GP" />
+        <td style="border: none"></td>
+        <td align="center" style="border: none">
+          <input
+            type="button"
+            @click="calcGp()"
+            id="button1"
+            value="Calculate GP"
+          />
         </td>
-        <td style="border: none;"></td>
+        <td style="border: none"></td>
       </tr>
     </table>
     <div class="holder">
-      <p v-if="courses.length == 0" v-bind:style="{color:'#3b5998'}">Please add some courses</p>
-      <p
-        v-else-if="courses.length == 1"
-        v-bind:style="{color:'#3b5998'}"
-      >You have {{courses.length}} course</p>
-      <p v-else v-bind:style="{color:'#3b5998'}">You have {{courses.length}} courses</p>
+      <p v-if="courses.length == 0" v-bind:style="{ color: '#3b5998' }">
+        Please add some courses
+      </p>
+      <p v-else-if="courses.length == 1" v-bind:style="{ color: '#3b5998' }">
+        You have {{ courses.length }} course
+      </p>
+      <p v-else v-bind:style="{ color: '#3b5998' }">
+        You have {{ courses.length }} courses
+      </p>
     </div>
   </div>
 </template>
@@ -110,13 +155,13 @@ import { ValidationProvider, extend, ValidationObserver } from "vee-validate";
 import { required } from "vee-validate/dist/rules";
 extend("required", {
   ...required,
-  message: "This field is required"
+  message: "This field is required",
 });
 export default {
-  name: "HelloWorld",
+  name: "Gp",
   components: {
     ValidationProvider,
-    ValidationObserver
+    ValidationObserver,
   },
   data() {
     return {
@@ -135,11 +180,11 @@ export default {
         fontWeight: "700",
         float: "right",
         cursor: "pointer",
-        color: "#323333"
+        color: "#323333",
       },
 
       courses: [],
-      currentGp: 5.0
+      currentGp: 5.0,
     };
   },
   computed: {},
@@ -163,11 +208,11 @@ export default {
         return false;
       }
     },
-    addSkill() {
+    addCourse() {
       this.courses.unshift({
         coursename: this.coursename,
         courseUnit: this.courseUnit,
-        grade: this.grade
+        grade: this.grade,
       });
       this.coursename = "";
       // console.log(this.courses);
@@ -181,6 +226,7 @@ export default {
         grade = 0,
         acc = 0,
         unit = 0;
+
       for (let i = 0; i < arr.length; i++) {
         unit = Number(arr[i].courseUnit);
         totalUnit = Number(arr[i].courseUnit) + totalUnit;
@@ -215,10 +261,10 @@ export default {
     },
     remove(id) {
       this.courses.splice(id, 1);
-      this.calcGp()
+      this.calcGp();
       this.currentGp = totalUnit == 0 ? 5 : this.currentGp;
-    }
-  }
+    },
+  },
 };
 </script>
 
@@ -307,7 +353,7 @@ legend {
   font-weight: 800;
 }
 .btnAdd {
-  width: 100%;
+  width: 100px;
   height: 33px;
   background-color: #3d4dad;
   box-shadow: 1px 1px 2px 0px black;
@@ -317,6 +363,7 @@ legend {
   color: #fff;
   font-weight: 700;
   cursor: pointer;
+  text-align: center;
 }
 .btnAdd:hover {
   box-shadow: 1px 3px 4px 0px black;
@@ -356,6 +403,6 @@ p {
   font-weight: 800;
 }
 .container {
-  box-shadow: 0px 0px 40px lightgray;
+  box-shadow: 0px 0px 40px rgb(255, 255, 255);
 }
 </style>
