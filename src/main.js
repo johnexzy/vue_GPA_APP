@@ -6,12 +6,13 @@ import router from './router'
 Vue.config.productionTip = true;
 
 /* eslint-disable no-new */
-new Vue({
-        el: '#app',
+// new Vue({
+//         el: '#app',
+//         router,
+//         components: { App },
+//         template: '<App/>'
+//     })
+    new Vue({
         router,
-        components: { App },
-        template: '<App/>'
-    })
-    // new Vue({
-    //     render: h => h(App)
-    // }).$mount('#app')
+        render: h => h(App)
+    }).$mount('#app')
