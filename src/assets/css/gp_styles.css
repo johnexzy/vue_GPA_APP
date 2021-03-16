@@ -1,0 +1,125 @@
+body,
+html {
+    width: 100%;
+    height: 100%;
+}
+
+
+/* Global Styles */
+
+@media(max-width: 500px) {}
+
+body {
+    background: #060e19;
+    text-align: center;
+}
+
+.nav-header {
+    font-weight: bolder;
+    color: #98b5b7;
+    font-size: 26px;
+    text-shadow: 4px 4px 8px 10px;
+    text-transform: uppercase;
+}
+
+figure {
+    text-align: center;
+    margin: 0 auto;
+}
+
+table {
+    margin: 0 auto;
+    border-radius: 10px;
+    min-width: 300px;
+    background: hsla(42, 78%, 78%, 0.96);
+    box-shadow: 4px 4px 8px 10px;
+}
+
+th,
+td {
+    vertical-align: top;
+}
+.footer {
+    position: relative;
+    bottom: 0;
+    background: #5876e4;
+    /* width: 100%; */
+}
+.form-input {
+    display: inline-block;
+    width: 60px;
+    height: 25px;
+    margin: auto;
+    border: none;
+}
+#button {
+    margin: 7px;
+    width: 200px;
+    height: auto;
+    background: #066;
+    color: #fff;
+    left: 0
+}
+#button1 {
+    margin: 3px;
+    width: auto;
+    height: 50px;
+    background: #066;
+    color: #fff;
+    border: 0;
+    cursor: pointer;
+}
+select {
+    border: none;
+    border-radius: 3px;
+    background: #8c7771;
+    height: 30px;
+    display: inline-block;
+    margin: auto;
+}
+#disab {
+    width: 200px;
+    height: auto;
+    margin: auto;
+    text-align: center;
+    display: inline-block;
+}
+#displayaa {
+    background: #3b5990;
+    font-size: 43px;
+    font-style: bold;
+}
+.side-nav {
+    margin-top: 300px;
+    height: 0;
+    padding: 0;
+    font-size: 32px;
+    color: #ccc;
+    display: block;
+    position: absolute;
+    z-index: 1;
+    left: 0;
+    background-color: #171b1b;
+    opacity: 100%;
+    overflow: hidden;
+    border-radius: 0px 0px 5px 0;
+    transition: width 250ms 0s, linear height 0.9s;
+    border-right: 4px solid;
+    display: inline;
+    width: 0;
+}
+.add {
+    color: gold;
+    font-size: 22px;
+    font-style: italic;
+}
+.ask {
+    color: blue;
+    font: 12px Sans-serif;
+    text-decoration: underline;
+    text-align: right;
+}
+.add:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
